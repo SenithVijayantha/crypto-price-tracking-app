@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 export const CoinContext = createContext();
 
 const CoinContextProvider = (props) => {
-  const [allCoin, setAllCoin] = useState([]);
+  const [allCoins, setAllCoins] = useState([]);
   const [currency, setCurrency] = useState({
     name: "usd",
     symbol: "$",
@@ -24,14 +24,14 @@ const CoinContextProvider = (props) => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
-      setAllCoin(data);
+      setAllCoins(data);
     } catch (error) {
       console.error(error);
     }
   };
 
   const contextValue = {
-    allCoin,
+    allCoins,
     currency,
     setCurrency,
   };
