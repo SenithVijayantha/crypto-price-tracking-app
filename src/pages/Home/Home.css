@@ -97,3 +97,42 @@
 .table-layout .red {
     color: #ff4646;
 }
+
+.see-more-btn {
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.see-more-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .table-layout {
+        grid-template-columns: 0.5fr 3fr 1fr 1fr;
+    }
+
+    .market-cap {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .table-layout div img {
+        width: 25px;
+    }
+
+    .table-layout {
+        font-size: 13px;
+    }
+}

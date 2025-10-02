@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./Navbar.css";
 import { MoveUpRight, Coins } from "lucide-react";
 import { CoinContext } from "../../context/CoinContext";
+import { Link } from "react-router";
 
 const Navbar = () => {
   const { setCurrency } = useContext(CoinContext);
@@ -40,13 +41,17 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="logo">
+      <Link to={"/"} className="logo">
         <span>CRYPTO PRICES</span>
         <Coins size={40} />
-      </div>
+      </Link>
       <ul>
-        <li>Home</li>
-        <li>Features</li>
+        <Link to={"/"}>
+          <li>Home</li>
+        </Link>
+        <Link>
+          <li>Features</li>
+        </Link>
         <li>Pricing</li>
         <li>Blog</li>
       </ul>

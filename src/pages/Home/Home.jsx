@@ -1,14 +1,36 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import { CoinContext } from "../../context/CoinContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const { allCoin, currency } = useContext(CoinContext);
+  const { allCoins, currency } = useContext(CoinContext);
   const [displayCoin, setDisplayCoin] = useState([]);
+  const [input, setInput] = useState("");
+  const [displayCoinCount, setDisplayCoinCount] = useState(10);
+
+  const inputHandler = (e) => {
+    setInput(e.target.value);
+    if (e.target.value === "") {
+      setDisplayCoin(allCoins);
+    }
+  };
+
+  const searchHandler = async (e) => {
+    e.preventDefault();
+    const coins = await allCoins.filter((item) => {
+      return item.name.toLowerCase().includes(input.toLowerCase());
+    });
+    setDisplayCoin(coins);
+  };
+
+  const seeMoreHandler = () => {
+    setDisplayCoinCount(displayCoinCount + 10);
+  };
 
   useEffect(() => {
-    setDisplayCoin(allCoin);
-  }, [allCoin]);
+    setDisplayCoin(allCoins);
+  }, [allCoins]);
 
   return (
     <div className="home">
@@ -20,8 +42,14 @@ const Home = () => {
           Welcome to the world's largest cryptocurrency marketplace. Sign up to
           explore more about cryptos.
         </p>
-        <form>
-          <input type="text" placeholder="Search crypto..." />
+        <form onSubmit={searchHandler}>
+          <input
+            value={input}
+            onChange={inputHandler}
+            type="text"
+            placeholder="Search crypto..."
+            required
+          />
           <button type="submit">Search</button>
         </form>
       </div>
@@ -33,8 +61,8 @@ const Home = () => {
           <p className="market-change">24H Change</p>
           <p className="market-cap">Market Cap</p>
         </div>
-        {displayCoin.slice(0, 10).map((item, index) => (
-          <div className="table-layout" key={index}>
+        {displayCoin.slice(0, displayCoinCount).map((item, index) => (
+          <Link to={`/coin/${item.id}`} className="table-layout" key={index}>
             <p>{item.market_cap_rank}</p>
             <div>
               <img src={item.image} alt="" />
@@ -53,8 +81,13 @@ const Home = () => {
             <p className="market-cap">
               {currency.symbol} {item.market_cap.toLocaleString()}
             </p>
-          </div>
+          </Link>
         ))}
+      </div>
+      <div className="see-more-btn-container">
+        <button className="see-more-btn" onClick={seeMoreHandler}>
+          See more
+        </button>
       </div>
     </div>
   );
