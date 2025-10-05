@@ -17,7 +17,7 @@ const CoinContextProvider = (props) => {
     const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}`;
     const options = {
       method: "GET",
-      headers: { "x-cg-demo-api-key": "CG-z5HoCNj5ctnyMNXyynvzSCoP" },
+      headers: { "x-cg-demo-api-key": import.meta.env.VITE_API_KEY },
       body: undefined,
     };
 
